@@ -8,8 +8,8 @@ jobs:
     runs-on: self-hosted
 
     env: 
-      DPC_PATH = ${{ vars.DPC_PATH }}
-      NVD_API_KEY = ${{ secrets.NVD_API_KEY }}
+      DPC_PATH: ${{ vars.DPC_PATH }}
+      NVD_API_KEY: ${{ secrets.NVD_API_KEY }}
 
     steps:
       - uses: actions/checkout@v6
@@ -42,11 +42,11 @@ jobs:
 
       - name: Dependency Check 
         run: | 
-            $DPC_PATH/dependency-check.sh --scan juice-shop/ --format HTML --out reports/ --nvdapikey $NVD_API_KEY
+            $DPC_PATH/dependency-check.sh --scan juice-shop/ --format HTML --out reports/ --nvdApiKey "$NVD_API_KEY"
 
       - name: Upload Reports
         if: always()
-        uses: actions/upload=artifact@v4
+        uses: actions/upload-artifact@v4
         with:
           name: dependency-check-report
           path: reports/
