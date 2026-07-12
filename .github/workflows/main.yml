@@ -32,8 +32,8 @@ jobs:
         run: |
           cd juice-shop/
           npm install > ../juice_install.log 2>&1 
-          cd build/
-          npm install --package-lock
+          # cd build/
+          # npm install --package-lock
 
 
       - name: Start Juice Shop
