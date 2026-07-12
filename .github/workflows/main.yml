@@ -1,0 +1,41 @@
+name: Juice Shop with Dependency Check
+
+on:
+  workflow_dispatch:
+    
+jobs:
+  build: 
+    runs-on: self-hosted
+
+    steps:
+      - uses: actions/checkout@v6
+      - name: Use Node.js
+        uses: actions/setup-node@v4
+        with: 
+          node-version: '26.x'
+
+      - name: Verify tools
+        run: 
+            node -v 
+            npm -v 
+            git --version
+
+      - name: Clone Juice Shop
+        run: git clone https://github.com/juice-shop/juice-shop.git
+
+
+      - name: Installing Dependencies
+        run: 
+          cd juice-shop/
+          npm install > juice_install.log
+
+
+      - name: Start Juice Shop
+        run: 
+            nohup npm start > juice_shop.log 2>&1 &
+            echo "Juice Shop is started"
+            sleep 20
+
+
+
+
