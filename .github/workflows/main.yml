@@ -15,7 +15,7 @@ jobs:
           node-version: '26.x'
 
       - name: Verify tools
-        run: 
+        run: |
             node -v 
             npm -v 
             git --version
@@ -25,13 +25,13 @@ jobs:
 
 
       - name: Installing Dependencies
-        run: 
+        run: |
           cd juice-shop/
           npm install > juice_install.log
 
 
       - name: Start Juice Shop
-        run: 
+        run: |
             nohup npm start > juice_shop.log 2>&1 &
             echo "Juice Shop is started"
             sleep 20
