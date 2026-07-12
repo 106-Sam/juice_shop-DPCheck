@@ -7,6 +7,10 @@ jobs:
   build: 
     runs-on: self-hosted
 
+    env: 
+      DPC_PATH = ${{ vars.DPC_PATH }}
+      NVD_API_KEY = ${{ secrets.NVD_API_KEY }}
+
     steps:
       - uses: actions/checkout@v6
       - name: Use Node.js
@@ -27,15 +31,25 @@ jobs:
       - name: Installing Dependencies
         run: |
           cd juice-shop/
-          npm install > juice_install.log
+          npm install > ../juice_install.log
 
 
       - name: Start Juice Shop
         run: |
             nohup npm start > juice_shop.log 2>&1 &
             echo "Juice Shop is started"
-            sleep 20
+            sleep 50
 
+      - name: Dependency Check 
+        run: | 
+            $DPC_PATH/dependency-check.sh --scan juice-shop/ --format HTML --out reports/ --nvdapikey $NVD_API_KEY
+
+      - name: Upload Reports
+        if: always()
+        uses: actions/upload=artifact@v4
+        with:
+          name: dependency-check-report
+          path: reports/
 
 
 
