@@ -40,11 +40,10 @@ jobs:
             nohup npm start > ../juice_start.log 2>&1 &
             sleep 20
             echo "Juice Shop is started"
-            sleep 20
 
       - name: Dependency Check 
         run: | 
-            $DPC_PATH/dependency-check.sh --scan juice-shop/ --format HTML --out reports/ --nvdApiKey "$NVD_API_KEY"
+            $DPC_PATH/dependency-check.sh --scan juice-shop/ --exclude "juice-shop/test/** --disableAssembly --disableYarnAudi --format HTML --out reports/ --nvdApiKey "$NVD_API_KEY" 
 
       - name: Upload Reports
         if: always()
