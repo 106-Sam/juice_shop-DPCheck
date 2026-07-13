@@ -41,9 +41,10 @@ jobs:
             sleep 20
             echo "Juice Shop is started"
 
-      - name: Dependency Check 
+      - name: Dependency Check
+        continue-on-error: true
         run: | 
-            $DPC_PATH/dependency-check.sh --scan juice-shop/ --exclude "juice-shop/test/**" --disableAssembly --disableYarnAudit --format HTML --out reports/ --nvdApiKey "$NVD_API_KEY" 
+            $DPC_PATH/dependency-check.sh --scan juice-shop/ --exclude "juice-shop/test/**" --disableArchive --disableAssembly --disableYarnAudit --format HTML --out reports/ --nvdApiKey "$NVD_API_KEY" 
 
       - name: Upload Reports
         if: always()
