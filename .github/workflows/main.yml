@@ -43,7 +43,7 @@ jobs:
 
       - name: Dependency Check 
         run: | 
-            $DPC_PATH/dependency-check.sh --scan juice-shop/ --exclude "juice-shop/test/** --disableAssembly --disableYarnAudi --format HTML --out reports/ --nvdApiKey "$NVD_API_KEY" 
+            $DPC_PATH/dependency-check.sh --scan juice-shop/ --exclude "juice-shop/test/**" --disableAssembly --disableYarnAudi --format HTML --out reports/ --nvdApiKey "$NVD_API_KEY" 
 
       - name: Upload Reports
         if: always()
